@@ -11,3 +11,12 @@ class TestApi(unittest.TestCase):
 		exception.application_key = 'test_again'
 		eq_(exception.application_key, 'test_again')
 
+
+	# The web application should be on for this test to pass
+	def test_log(self):
+		_ = log('test', level='debug')
+		eq_(_, 'ok')
+
+	def test_exception(self):
+		_ = exception({'message': 'test'})
+		eq_(_, 'ok')

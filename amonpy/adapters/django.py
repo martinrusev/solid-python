@@ -3,7 +3,7 @@ import sys
 from django.core.urlresolvers import resolve
 import amonpy
 
-class AmonMiddleware(object):
+class ExceptionMiddleware(object):
 
 	def process_exception(self, request, exc):	
 		_exception = {}

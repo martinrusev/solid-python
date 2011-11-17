@@ -37,6 +37,8 @@ class Log(AmonAPI):
 
 		if r.status_code != 200:
 			raise ConnectionException(self.errors['connection'])
+		else:
+			return 'ok'
 
 # Shortcuts
 # import amonpy
@@ -56,6 +58,8 @@ class Exception(AmonAPI):
 
 		if r.status_code != 200:
 			raise ConnectionException(self.errors['connection'])
+		else:
+			return 'ok'
 
 # Shortcut
 # import amonpy
