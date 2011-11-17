@@ -1,6 +1,6 @@
 from setuptools import setup
 
-version = '0.2.0'
+version = '0.2.1'
 
 setup(
     name='amonpy',
@@ -17,8 +17,8 @@ setup(
     author_email='martin@amon.cx',
     url='https://github.com/martinrusev/amon-clients/python/amonpy',
     license='BSD',
-	packages=['amonpy',],
+	packages=['amonpy','amonpy.adapters'],
     package_dir={'amonpy':'amonpy'},
     zip_safe=False,
-    install_requires=['setuptools','requests',],
-) 
+    install_requires=['requests',],
+)
