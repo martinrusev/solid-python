@@ -1,9 +1,9 @@
 import traceback
 import sys
 from django.core.urlresolvers import resolve
-import amonpy
+from amonpy import exception
 
-class ExceptionMiddleware(object):
+class DjangoExceptionMiddleware(object):
 
 	def process_exception(self, request, exc):	
 		_exception = {}
@@ -12,7 +12,7 @@ class ExceptionMiddleware(object):
 		_exception.update(self.exception_info(exc, sys.exc_info()[2]))	
 		_exception['data'] = self.request_info(request) # Additional data 
 
-		amonpy.exception(data=_exception)
+		exception(data=_exception)
 
 
 	def exception_class(self, exception):
