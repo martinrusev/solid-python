@@ -10,10 +10,18 @@ class AmonAPI(object):
 
 	def set_application_key(self, app_key):
 		self.app_key = app_key
-
+	
 	application_key = property(get_application_key, set_application_key)	
+	
 
-	url = "{0}:{1}".format(settings['host'], settings['port'])
+	settings_host = settings['host']
+	local_hosts = ['127.0.0.1', 'localhost']
+	
+	if settings_host in local_hosts:
+		settings_host = "http://{0}".format(settings_host)
+
+
+	url = "{0}:{1}".format(settings_host, settings['port'])
 	headers = {"Content-type": "application/json"}
 
 	errors = {'connection': 'Could not establish connection to the Amon API.\
@@ -44,6 +52,7 @@ class Log(AmonAPI):
 # import amonpy
 # amonpy.log(message, level='')
 log = Log()
+print log.url
 
 class Exception(AmonAPI):
 	
