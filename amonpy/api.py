@@ -52,7 +52,6 @@ class Log(AmonAPI):
 # import amonpy
 # amonpy.log(message, level='')
 log = Log()
-print log.url
 
 class Exception(AmonAPI):
 	
