@@ -41,6 +41,10 @@ class AmonAPI(object):
 		if hostaddr in local_hosts:
 			hostaddr =  "http://{0}".format(hostaddr)
 
+		# Add http if its a numeric ip address
+		if not hostaddr.startswith('http'):
+			hostaddr =  "http://{0}".format(hostaddr)
+
 		return hostaddr
 
 	def connection_port(self):
