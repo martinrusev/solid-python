@@ -1,6 +1,6 @@
 from setuptools import setup
 
-version = '0.2.4'
+version = '0.2.5'
 
 setup(
     name='amonpy',
@@ -15,7 +15,7 @@ setup(
 	keywords='amon, monitoring, logging, exception logging',
     author='Martin Rusev',
     author_email='martin@amon.cx',
-    url='https://github.com/martinrusev/amon-clients/python/amonpy',
+    url='https://github.com/martinrusev/amonpy',
     license='BSD',
 	packages=['amonpy','amonpy.adapters'],
     package_dir={'amonpy':'amonpy'},
