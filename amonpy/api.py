@@ -79,12 +79,12 @@ class Log(AmonAPI):
 	def __init__(self):
 		super(Log, self).__init__()
 
-	def __call__(self, message, level='notset'):
+	def __call__(self, message, tags='notset'):
 		url = self.connection_url() + '/api/log'
 
 		log_data = {}
 		log_data['message'] = message
-		log_data['level'] = level
+		log_data['tags'] = tags
 
 		data = self.jsonify(log_data)
 

@@ -10,15 +10,19 @@ class TestWebApp(unittest.TestCase):
 		self.exception = Exception()
 
 	def test_log(self):
-		_ = self.log('test', level='debug')
+		_ = self.log('test', 'debug')
 		eq_(_, 'ok')
 	
 	def test_log_dict(self):
-		_ = self.log({"test": "something", "more_test": "another thing"}, level='debug')
+		_ = self.log({"test": "something", "more_test": "another thing"}, 'debug')
 		eq_(_, 'ok')
 	
 	def test_log_list(self):
-		_ = self.log([1,2,3,4], level='debug')
+		_ = self.log([1,2,3,4], 'debug')
+		eq_(_, 'ok')
+
+	def test_log_tags(self):
+		_ = self.log({"test": "something", "test_another": "another thing"}, ['debug', 'benchmark'])
 		eq_(_, 'ok')
 
 	def test_exception(self):
