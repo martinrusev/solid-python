@@ -49,7 +49,7 @@ By default amonpy takes the connection details from `/etc/amon.conf`, but you ca
     amonpy.config.port = your port
 
 
-    # While testing or developing the app you can turn off amonpy
+    # While testing you can turn off amonpy
     amonpy.config.offline = True
 
 
@@ -67,7 +67,7 @@ By default amonpy takes the connection details from `/etc/amon.conf`, but you ca
     amonpy.log('data')
 
     
-    # amonpy will still your data to a file, if you set offline to true
+    # amonpy will still log your data to a file, if you set offline to true
     amonpy.config.file = '/path/to/file'
     amonpy.config.offline = True
 
@@ -75,7 +75,7 @@ By default amonpy takes the connection details from `/etc/amon.conf`, but you ca
  Django 
 ================
 
-Using amonpy in Django is exactly the same as every other python library. You can customize the config options 
+Using amonpy in Django is exactly the same as in every other python library. You can customize the config options 
 by adding them somewhere in `settings.py`
 
 :: 
