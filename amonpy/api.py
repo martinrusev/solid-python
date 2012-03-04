@@ -8,8 +8,7 @@ class AmonAPI(object):
 
     headers = {"Content-type": "application/json"}
 
-    errors = {'connection': 'Could not establish connection to the Amon API.\
-			Please ensure that the web application is running'}
+    errors = {'connection': 'Could not establish connection to '}
 
     def jsonify(self, data):
         return json.dumps(data)
@@ -31,14 +30,15 @@ class AmonAPI(object):
 
         # Append the application key if present
         if config.application_key:
-            url = "{0}?key={1}".format(url, config.application_key)
+            url = "{0}/{1}".format(url, config.application_key)
        
         # Don't post the data if offline is true
         if not config.offline:
             r = requests.post(url, data, headers=headers, timeout=5)
 
             if r.status_code != 200:
-                raise ConnectionException(self.errors['connection'])
+                error = "{0}-{1}".format(self.errors['connection'], url)
+                raise ConnectionException(error)
             else:
                 return 'ok'
 

@@ -63,11 +63,11 @@ By default amonpy takes the connection details from `/etc/amon.conf`, but you ca
     amonpy.config.file = '/path/to/file'
 
     # amonpy will send a request to the Amon app and in addition to that will log 
-    # your data to the specified filename
+    # your data to the specified file
     amonpy.log('data')
 
     
-    # amonpy will still your data to a file, if you set offline to true
+    # amonpy is still going to log your data to a file, if you set offline to true
     amonpy.config.file = '/path/to/file'
     amonpy.config.offline = True
 
@@ -82,7 +82,7 @@ by adding them somewhere in `settings.py`
 
     # in settings.py
     import amonpy
-    amon.config.option = 
+    amon.config.host = 'http://host' 
 
 
 To capture and log exceptions
