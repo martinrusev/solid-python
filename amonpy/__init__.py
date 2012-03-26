@@ -1,3 +1,5 @@
+__version__ = '0.4'
+
 from amonpy.api import (
 		log, exception,
 		Log, Exception
