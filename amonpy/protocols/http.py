@@ -12,7 +12,7 @@ class AmonRemoteHTTP(object):
     def jsonify(self, data):
         return json.dumps(data)
 
-    def _post(self, data, type=None):
+    def post(self, data, type=None):
  
         url = config['address']
         if type == 'log':
@@ -21,11 +21,13 @@ class AmonRemoteHTTP(object):
             url = "{0}/api/log/exception".format(url)
 
         # Append the application key if present
-        if config['application_key']:
+        application_key = config.get('application_key')
+        if application_key:
             url = "{0}/{1}".format(url, config['application_key'])
        
         # Don't post the data if offline is true
-        if not config['offline']:
+        offline = config.get('offline', None)
+        if not offline:
             data = self.jsonify(data)
             
             r = requests.post(url, data, headers=self.headers, timeout=5)
@@ -34,7 +36,7 @@ class AmonRemoteHTTP(object):
                 error = "{0}-{1}".format(self.errors['connection'], url)
                 raise ConnectionException(error)
             else:
-                return 'ok'
+                return 'http request ok'
 
-remote = AmonRemoteHTTP()
+_http = AmonRemoteHTTP()
 

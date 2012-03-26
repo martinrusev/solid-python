@@ -1,9 +1,9 @@
 from amonpy.config import config
-
-if config['protocol'] == 'http':
-    from amonpy.protocols.http import remote
-elif config['protocol'] == 'zeromq':
-    from amonpy.protocols.zeromq import remote
+from amonpy.protocols.http import _http
+try:
+    from amonpy.protocols.zeromq import _zeromq
+except:
+    pass # If zeromq is not installed, don't trigger errors
 
 class Log(object):
 
@@ -13,7 +13,12 @@ class Log(object):
         data['message'] = message
         data['tags'] = tags
 
-        return remote._post(data, type='log')
+        protocol = config.get('protocol', None)
+        
+        if protocol == 'http':
+            return _http.post(data, type='log')
+        elif protocol == 'zeromq':
+            return _zeromq.post(data, type='log')
 
 # Shortcuts
 # import amonpy
@@ -23,8 +28,13 @@ log = Log()
 class Exception(object):
 
     def __call__(self, data):
-        return remote._post(data, type='exception')
-
+        
+        protocol = config.get('protocol', None)
+        
+        if protocol == 'http':
+            return _http.post(data, type='exception')
+        elif protocol == 'zeromq':
+            return _zeromq.post(data, type='exception')
 # Shortcut
 # import amonpy
 # amonpy.exception()
