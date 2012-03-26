@@ -1,3 +1,6 @@
 *.pyc
 _build/
+build/
+dist/
+amonpy.egg-info/
 .sass-cache

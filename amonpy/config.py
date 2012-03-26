@@ -1,8 +1,6 @@
 class AmonConfig(dict):
 
-    defaults = {"protocol": "http", 
-                "host": "http://127.0.0.1",
-                "port": 2464}
+    defaults = {"protocol": "http", "address": "http://127.0.0.1:2464"}
 
     def __init__(self):
         dict.__init__(self, self.defaults)
