@@ -3,7 +3,7 @@ from amonpy.protocols.http import _http
 try:
     from amonpy.protocols.zeromq import _zeromq
 except:
-    pass # If zeromq is not installed, don't trigger errors
+    _zeromq = None # If pyzmq is not isntalled
 
 class Log(object):
 
@@ -13,11 +13,9 @@ class Log(object):
         data['message'] = message
         data['tags'] = tags
 
-        protocol = config.get('protocol', None)
-        
-        if protocol == 'http':
+        if config.protocol == 'http':
             return _http.post(data, type='log')
-        elif protocol == 'zeromq':
+        elif config.protocol == 'zeromq':
             return _zeromq.post(data, type='log')
 
 # Shortcuts
@@ -29,11 +27,9 @@ class Exception(object):
 
     def __call__(self, data):
         
-        protocol = config.get('protocol', None)
-        
-        if protocol == 'http':
+        if config.protocol == 'http':
             return _http.post(data, type='exception')
-        elif protocol == 'zeromq':
+        elif config.protocol == 'zeromq':
             return _zeromq.post(data, type='exception')
 # Shortcut
 # import amonpy

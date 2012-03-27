@@ -14,20 +14,19 @@ class AmonRemoteHTTP(object):
 
     def post(self, data, type=None):
  
-        url = config['address']
+        url = config.address
         if type == 'log':
             url = "{0}/api/log".format(url)
         elif type == 'exception':
-            url = "{0}/api/log/exception".format(url)
+            url = "{0}/api/exception".format(url)
 
         # Append the application key if present
-        application_key = config.get('application_key')
+        application_key = config.application_key
         if application_key:
-            url = "{0}/{1}".format(url, config['application_key'])
+            url = "{0}/{1}".format(url, config.application_key)
        
         # Don't post the data if offline is true
-        offline = config.get('offline', None)
-        if not offline:
+        if not config.offline:
             data = self.jsonify(data)
             
             r = requests.post(url, data, headers=self.headers, timeout=5)

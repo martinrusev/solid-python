@@ -2,8 +2,8 @@ class AmonConfig(dict):
 
     def __init__(self):
         self._app_key = None
-        self._address = None
-        self._protocol = None
+        self._address = 'http://127.0.0.1:2464'
+        self._protocol = 'http'
         self._file = None
         self._offline = None
 
