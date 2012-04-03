@@ -18,7 +18,7 @@ setup(
     author_email='martin@amon.cx',
     url='https://github.com/martinrusev/amonpy',
     license='BSD',
-	packages=['amonpy','amonpy.adapters'],
+	packages=['amonpy','amonpy.adapters','amonpy.protocols'],
     package_dir={'amonpy':'amonpy'},
     zip_safe=False,
     install_requires=['requests',],

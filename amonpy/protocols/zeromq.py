@@ -7,18 +7,18 @@ class AmonRemoteZeroMQ(object):
         address = "tcp://{0}".format(config.address)
         data = {"type": type, "content" : data}
         if config.application_key:
-            data['application_key'] = config.application_key
+            data['app_key'] = config.application_key
         
         context = zmq.Context()
         socket = context.socket(zmq.DEALER)
         socket.connect(address)
         
         try:
-            socket.send_json(data)
+            socket.send_json(data, zmq.NOBLOCK)
         except Exception, e:
             raise e
         
-        return 'zeromq request ok'
+        return 'zeromq request ok' # for the test suite
         
         socket.close()
         context.term()
