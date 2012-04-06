@@ -3,14 +3,14 @@ import sys
 import traceback
 
 # Http 
-amonpy.config.address = 'http://127.0.0.1:2465'
+amonpy.config.address = 'http://127.0.0.1:2464'
 amonpy.log('test data', ['debug','messages','http'])
 
 
 # ZeroMQ
 amonpy.config.address = '127.0.0.1:5464'
 amonpy.config.protocol = 'zeromq'
-amonpy.log('test data', ['debug','messages', 'zeromq'])
+amonpy.log('test data zeromq', ['debug','messages', 'zeromq'])
 
 
 try:
@@ -26,3 +26,4 @@ except Exception, e:
     }
 
     amonpy.exception(data)
+
