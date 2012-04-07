@@ -13,7 +13,7 @@ amonpy.config.protocol = 'zeromq'
 
 start = time.time()
 for i in range(0, 1000):
-    amonpy.log('test')
+    amonpy.log({"key": "value"})
 
 print "ZeroMQ - {0}".format(time.time()-start) 
 
@@ -22,7 +22,7 @@ amonpy.config.protocol = 'http'
 
 start = time.time()
 for i in range(0, 1000):
-    amonpy.log('test')
+    amonpy.log({"key": "value"})
 
 print "HTTP - {0}".format(time.time()-start) 
 
@@ -36,6 +36,7 @@ logger.addHandler(fh)
 
 start = time.time()
 for i in range(0, 1000):
-    logger.info('test')
+    _dict = {"key": "value"}
+    logger.info(str(_dict))
 
 print "Standard logging - {0}".format(time.time()-start) 
