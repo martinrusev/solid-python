@@ -5,33 +5,21 @@ try:
 except:
     _zeromq = None # If pyzmq is not isntalled
 
-class Log(object):
+def log(message, tags='notset'):
 
-    def __call__(self, message, tags='notset'):
+    data = {}
+    data['message'] = message
+    data['tags'] = tags
 
-        data = {}
-        data['message'] = message
-        data['tags'] = tags
+    if config.protocol == 'http':
+        return _http.post(data, type='log')
+    elif config.protocol == 'zeromq':
+        return _zeromq.post(data, type='log')
 
-        if config.protocol == 'http':
-            return _http.post(data, type='log')
-        elif config.protocol == 'zeromq':
-            return _zeromq.post(data, type='log')
+def exception(data):
+    
+    if config.protocol == 'http':
+        return _http.post(data, type='exception')
+    elif config.protocol == 'zeromq':
+        return _zeromq.post(data, type='exception')
 
-# Shortcuts
-# import amonpy
-# amonpy.log(message, tags='')
-log = Log()
-
-class Exception(object):
-
-    def __call__(self, data):
-        
-        if config.protocol == 'http':
-            return _http.post(data, type='exception')
-        elif config.protocol == 'zeromq':
-            return _zeromq.post(data, type='exception')
-# Shortcut
-# import amonpy
-# amonpy.exception()
-exception = Exception()

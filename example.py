@@ -26,4 +26,3 @@ except Exception, e:
     }
 
     amonpy.exception(data)
-
