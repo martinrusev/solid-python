@@ -3,4 +3,5 @@ _build/
 build/
 dist/
 amonpy.egg-info/
+bench.log
 .sass-cache
