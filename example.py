@@ -4,7 +4,8 @@ import traceback
 
 # Http 
 amonpy.config.address = 'http://127.0.0.1:2464'
-amonpy.log('test data', ['debug','messages','http'])
+for i in range(0, 100):
+	amonpy.log('test data', ['debug','messages','http'])
 
 
 # ZeroMQ

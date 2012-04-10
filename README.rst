@@ -13,6 +13,19 @@ Amonpy is the Python client for Amon
 download the tarball and run ``python setup.py install``
 
 
+===============
+ Configuration 
+===============
+
+
+:: 
+
+    import amonpy
+    amonpy.config.address = 'http://amonhost:port'
+
+    amonpy.config.protocol = 'http|zeromq'
+
+
 =========
  Usage 
 =========
@@ -36,40 +49,7 @@ download the tarball and run ``python setup.py install``
     
     amonpy.exception(data)
 
-=========
- Options 
-=========
 
-By default amonpy takes the connection details from `/etc/amon.conf`, but you can change these values:
-
-:: 
-
-    import amonpy
-    amonpy.config.host = 'http://yourhost'
-    amonpy.config.port = your port
-
-
-    # While testing you can turn off amonpy
-    amonpy.config.offline = True
-
-
-================
- Logging to file 
-================
-
-::
-
-    import amonpy
-    amonpy.config.file = '/path/to/file'
-
-    # amonpy will send a request to the Amon app and in addition to that will log 
-    # your data to the specified file
-    amonpy.log('data')
-
-    
-    # amonpy will still log your data to a file, if you set offline to true
-    amonpy.config.file = '/path/to/file'
-    amonpy.config.offline = True
 
 ================
  Django 
@@ -82,7 +62,7 @@ by adding them somewhere in `settings.py`
 
     # in settings.py
     import amonpy
-    amon.config.host = 'http://host' 
+    amon.config.address = 'http://amonhost:port' 
 
 
 To capture and log exceptions
