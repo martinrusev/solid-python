@@ -1,7 +1,6 @@
 from setuptools import setup
-from amonpy import __version__
 
-version = __version__
+version = '0.4'
 
 setup(
     name='amonpy',
