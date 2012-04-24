@@ -5,20 +5,23 @@ import zmq
 import urllib2
 import json
 
+runs = 10000
+http_address = 'http://127.0.0.1:2464'
+
 amonpy.config.address = '127.0.0.1:5464'
 amonpy.config.protocol = 'zeromq'
 
 start = time.time()
-for i in range(0, 10000):
+for i in range(0, runs):
     amonpy.log({"key": "value"})
 
 print "ZeroMQ - {0}".format(time.time()-start) 
 
-amonpy.config.address = 'http://127.0.0.1:2465'
+amonpy.config.address = http_address
 amonpy.config.protocol = 'http'
 
 start = time.time()
-for i in range(0, 10000):
+for i in range(0, runs):
     amonpy.log({"key": "value"})
 
 print "HTTP - {0}".format(time.time()-start) 
@@ -32,7 +35,7 @@ fh.setFormatter(formatter)
 logger.addHandler(fh)
 
 start = time.time()
-for i in range(0, 10000):
+for i in range(0, runs):
     _dict = {"key": "value"}
     logger.info(str(_dict))
 
@@ -49,18 +52,18 @@ def post_zeromq():
     context.destroy()
     
 start = time.time()
-for i in range(0, 10000):
+for i in range(0, runs):
     post_zeromq()
 
 print "ZeroMQ Raw - {0}".format(time.time()-start) 
 
     
 start = time.time()
-for i in range(0, 10000):
+for i in range(0, runs):
     data = {'message': 'test me', 'tags':['debug','test']}
     json_string = json.dumps(data)
 
-    req = urllib2.Request("http://127.0.0.1:2465/api/log",
+    req = urllib2.Request("{0}/api/log".format(http_address)",
                       headers = {"Content-Type": "application/json"},
                       data = json_string)
     f = urllib2.urlopen(req)
