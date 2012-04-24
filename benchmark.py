@@ -63,7 +63,7 @@ for i in range(0, runs):
     data = {'message': 'test me', 'tags':['debug','test']}
     json_string = json.dumps(data)
 
-    req = urllib2.Request("{0}/api/log".format(http_address)",
+    req = urllib2.Request("{0}/api/log".format(http_address),
                       headers = {"Content-Type": "application/json"},
                       data = json_string)
     f = urllib2.urlopen(req)
