@@ -1,23 +1,23 @@
 import zmq
 from amonpy.config import config
 
-def post_zeromq(data, type=None):
-    address = "tcp://{0}".format(config.address)
-    data = {"type": type, "content" : data}
-    if config.application_key:
-        data['app_key'] = config.application_key
-    
-    context = zmq.Context.instance()
-    socket = context.socket(zmq.DEALER)
-    socket.connect(address)
-    
-    try:
-        socket.send_json(data, zmq.NOBLOCK)
-    except Exception, e:
-        raise e
-    
-    context.destroy()
-    
-    return 'zeromq request ok' # for the test suite
-    
+class ZeroMQHandler():
+    def __init__(self, socktype=zmq.DEALER):
+        self.ctx = zmq.Context.instance()
+        self.socket = zmq.Socket(self.ctx, socktype)
+        
+        address = "tcp://{0}".format(config.address)
+        self.socket.connect(address)
+
+    def close(self):
+        self.socket.close()
+
+    def post(self, data, type=None):
+        data = {"type": type, "content" : data}
+        if config.application_key:
+            data['app_key'] = config.application_key
+        
+        self.socket.send_json(data, zmq.NOBLOCK)
+
+zeromq_handler = ZeroMQHandler()
 

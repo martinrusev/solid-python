@@ -1,9 +1,5 @@
 from amonpy.config import config
 from amonpy.protocols.http import post_http
-try:
-    from amonpy.protocols.zeromq import post_zeromq
-except:
-    _zeromq = None # If pyzmq is not isntalled
 
 def log(message, tags='notset'):
 
@@ -12,12 +8,14 @@ def log(message, tags='notset'):
     if config.protocol == 'http':
        return post_http(data, type='log')
     elif config.protocol == 'zeromq':
-       return post_zeromq(data, type='log')
+       from amonpy.protocols.zeromq import zeromq_handler
+       
+       return zeromq_handler.post(data, type='log')
 
 def exception(data):
     
     if config.protocol == 'http':
         return post_http(data, type='exception')
     elif config.protocol == 'zeromq':
-        return post_zeromq(data, type='exception')
+        return zeromq_handler.post(data, type='exception')
 

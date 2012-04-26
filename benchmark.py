@@ -10,25 +10,29 @@ http_address = 'http://127.0.0.1:2464'
 zeromq_address = '127.0.0.1:5464'
 
 zeromq_bench = True
-http_bench = True
+http_bench = False
 standart_bench = True
 
 print "Runs: {0}".format(runs)
 
-def post_zeromq():
-    address = "tcp://{0}".format(zeromq_address)
-    data = {"type": 'test', "content" : 'test'}
-    context = zmq.Context.instance()
-    
-    socket = context.socket(zmq.DEALER)
-    socket.connect(address)
-    socket.send_json(data, zmq.NOBLOCK)
-    context.destroy()
+
+class ZeroMQHandler():
+    def __init__(self, socktype=zmq.DEALER):
+        self.ctx = zmq.Context.instance()
+        self.socket = zmq.Socket(self.ctx, socktype)
+        
+        address = "tcp://{0}".format(zeromq_address)
+        self.socket.connect(address)
+
+    def close(self):
+        self.socket.close()
+
+    def post(self, data):
+        self.socket.send_json(data, zmq.NOBLOCK)
 
 if zeromq_bench is True:
     amonpy.config.address = zeromq_address
     amonpy.config.protocol = 'zeromq'
-
 
     start = time.time()
     for i in range(0, runs):
@@ -37,11 +41,13 @@ if zeromq_bench is True:
     print "ZeroMQ - {0}".format(time.time()-start) 
     
     
-    start = time.time()
-    for i in range(0, runs):
-        post_zeromq()
+    #z = ZeroMQHandler()
+    #start = time.time()
+    #for i in range(0, runs):
+        #data = {'content': {'message': 'zeromq test {0}'.format(i), 'tags': ['debug']}, 'type':'log'}
+        #z.post(data)
 
-    print "ZeroMQ Raw - {0}".format(time.time()-start) 
+    #print "ZeroMQ Raw - {0}".format(time.time()-start) 
 
 
 if http_bench is True:
