@@ -5,6 +5,8 @@ class ZeroMQHandler():
     def __init__(self, socktype=zmq.DEALER):
         self.ctx = zmq.Context.instance()
         self.socket = zmq.Socket(self.ctx, socktype)
+        self.socket.setsockopt(zmq.LINGER, 0)
+        self.socket.setsockopt(zmq.SWAP, 25000000) # 25MB disk swap
         
         address = "tcp://{0}".format(config.address)
         self.socket.connect(address)

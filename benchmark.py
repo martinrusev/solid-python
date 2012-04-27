@@ -5,7 +5,7 @@ import zmq
 import urllib2
 import json
 
-runs = 5000
+runs = 10000
 http_address = 'http://127.0.0.1:2464'
 zeromq_address = '127.0.0.1:5464'
 
@@ -14,7 +14,6 @@ http_bench = False
 standart_bench = True
 
 print "Runs: {0}".format(runs)
-
 
 class ZeroMQHandler():
     def __init__(self, socktype=zmq.DEALER):
