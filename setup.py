@@ -1,6 +1,6 @@
 from setuptools import setup
 
-version = '0.4.2'
+version = '0.4.4'
 
 setup(
     name='amonpy',

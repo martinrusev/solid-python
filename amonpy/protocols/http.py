@@ -14,10 +14,10 @@ def post_http(data, type=None):
     elif type == 'exception':
         url = "{0}/api/exception".format(url)
 
-    # Append the application key if present
-    application_key = config.application_key
-    if application_key:
-        url = "{0}/{1}".format(url, config.application_key)
+    # Append the secret key if present
+    secret_key = config.application_key
+    if secret_key:
+        url = "{0}/{1}".format(url, secret_key)
    
     # Don't post the data if offline is true
     if not config.offline:

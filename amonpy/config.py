@@ -1,19 +1,19 @@
 class AmonConfig(dict):
 
     def __init__(self):
-        self._app_key = None
+        self._secret_key = None
         self._address = 'http://127.0.0.1:2464'
         self._protocol = 'http'
         self._file = None
         self._offline = None
 
-    def get_application_key(self):
-        return self._app_key
+    def get_secret_key(self):
+        return self._secret_key
 
-    def set_application_key(self, app_key):
-        self._app_key = app_key
+    def set_secret_key(self, secret_key):
+        self._secret_key = secret_key
 
-    application_key = property(get_application_key, set_application_key)
+    secret_key = property(get_secret_key, set_secret_key)
 
     def get_address(self):
         return self._address
