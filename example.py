@@ -3,15 +3,16 @@ import sys
 import traceback
 
 # Http 
-amonpy.config.address = 'http://127.0.0.1:2464'
+amonpy.config.address = 'http://127.0.0.1:2465'
+amonpy.config.secret_key = 'u6ljlx2glnf8xq45ut1etkpxghmjpe3e'
 for i in range(0, 100):
 	amonpy.log('test data', ['debug','messages','http'])
 
 
 # ZeroMQ
-amonpy.config.address = '127.0.0.1:5464'
-amonpy.config.protocol = 'zeromq'
-amonpy.log('test data zeromq', ['debug','messages', 'zeromq'])
+#amonpy.config.address = '127.0.0.1:5464'
+#amonpy.config.protocol = 'zeromq'
+#amonpy.log('test data zeromq', ['debug','messages', 'zeromq'])
 
 
 try:

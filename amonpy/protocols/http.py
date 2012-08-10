@@ -15,7 +15,7 @@ def post_http(data, type=None):
         url = "{0}/api/exception".format(url)
 
     # Append the secret key if present
-    secret_key = config.application_key
+    secret_key = config.secret_key
     if secret_key:
         url = "{0}/{1}".format(url, secret_key)
    
