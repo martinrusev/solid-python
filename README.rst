@@ -16,15 +16,16 @@ download the tarball and run ``python setup.py solidpy``
 ================
  Django 
 ================
+To capture and log exceptions in settings.py add the following: 
+
 
 :: 
+	
 	SOLID_CONFIG = {
 		'url': 'http://solid_instance:port',
 		'secret': 'secret_key'
 	}
 
-
-To capture and log exceptions
 
 :: 
 
