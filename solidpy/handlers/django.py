@@ -1,18 +1,30 @@
+from __future__ import absolute_import
+
 import traceback
 import sys
-from django.core.urlresolvers import resolve
-from amonpy import exception
 
-class DjangoExceptionMiddleware(object):
+
+from django.core.urlresolvers import resolve
+from django.conf import settings
+
+from solidpy.handlers.base import SolidBaseHandler
+
+
+class SolidDjangoMiddleware(SolidBaseHandler):
+
+
+	# TODO - Check if the settings are properly configured
+	def __init__(self):
+		super(SolidDjangoMiddleware, self).__init__()
 
 	def process_exception(self, request, exc):	
-		_exception = {}
-		_exception['url'] = request.build_absolute_uri()
+		exception_dict = {}
+		exception_dict['url'] = request.build_absolute_uri()
 
-		_exception.update(self.exception_info(exc, sys.exc_info()[2]))	
-		_exception['data'] = self.request_info(request) # Additional data 
+		exception_dict.update(self.exception_info(exc, sys.exc_info()[2]))	
+		exception_dict['data'] = self.request_info(request) # Additional data 
 
-		exception(data=_exception)
+		self.send(exception_dict, settings.SOLID_CONFIG)
 
 
 	def exception_class(self, exception):
