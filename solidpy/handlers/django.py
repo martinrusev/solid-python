@@ -22,7 +22,7 @@ class SolidDjangoMiddleware(SolidBaseHandler):
 		exception_dict['url'] = request.build_absolute_uri()
 
 		exception_dict.update(self.exception_info(exc, sys.exc_info()[2]))	
-		exception_dict['data'] = self.request_info(request) # Additional data 
+		exception_dict['request'] = self.request_info(request)
 
 		self.send(exception_dict, settings.SOLID_CONFIG)
 
@@ -53,15 +53,15 @@ class SolidDjangoMiddleware(SolidBaseHandler):
 		parameters.update(kwargs)
 		parameters.update(request.POST.items())
 
+		environ = request.META
+
 		return {
-				"request": {
-					"session": dict(request.session),
-					"remote_ip": request.META["REMOTE_ADDR"],
-					"parameters": parameters,
-					"action": view.__name__,
-					"application": view.__module__,
-					"request_method": request.method,
-					}
+				"session": dict(request.session),
+				"remote_ip": request.META["REMOTE_ADDR"],
+				"parameters": parameters,
+				"action": view.__name__,
+				"application": view.__module__,
+				"request_method": request.method,
 				}
 
 	def exception_info(self, exception, tb):
