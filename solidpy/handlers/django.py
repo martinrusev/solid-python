@@ -1,14 +1,16 @@
 from __future__ import absolute_import
 
 import traceback
+import inspect
 import sys
-
+import os
 
 from django.core.urlresolvers import resolve
 from django.conf import settings
 
 from solidpy.handlers.base import SolidBaseHandler
-
+from solidpy.utils.wsgi import get_headers, get_environ
+from solidpy.utils.stack import get_lines_from_file
 
 class SolidDjangoMiddleware(SolidBaseHandler):
 
@@ -57,21 +59,28 @@ class SolidDjangoMiddleware(SolidBaseHandler):
 
 		return {
 				"session": dict(request.session),
+				'cookies': dict(request.COOKIES),
+				'headers': dict(get_headers(environ)),
+                'env': dict(get_environ(environ)),
 				"remote_ip": request.META["REMOTE_ADDR"],
 				"parameters": parameters,
 				"action": view.__name__,
 				"application": view.__module__,
 				"request_method": request.method,
-				}
+		}
 
 	def exception_info(self, exception, tb):
+		culprit_filepath, lineno, method, error = traceback.extract_tb(tb)[-1]
+		context = get_lines_from_file(filepath=culprit_filepath, culprit_lineno=lineno)
+		
 		backtrace = []
 		for tb_part in traceback.format_tb(tb):
 			backtrace.extend(tb_part.rstrip().splitlines())
 
 		return {
-					"message": str(exception),
-					"backtrace": backtrace,
-					"exception_class": self.exception_class(exception)
-					}
+			"message": str(exception),
+			"backtrace": backtrace,
+			"context": context,
+			"exception_class": self.exception_class(exception)
+		}
 
