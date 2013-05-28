@@ -21,7 +21,6 @@ class SolidDjangoMiddleware(SolidBaseHandler):
 
 	def process_exception(self, request, exc):	
 		exception_dict = {}
-		exception_dict['url'] = request.build_absolute_uri()
 
 		exception_dict.update(self.exception_info(exc, sys.exc_info()[2]))	
 		exception_dict['request'] = self.request_info(request)
@@ -66,10 +65,13 @@ class SolidDjangoMiddleware(SolidBaseHandler):
 				"parameters": parameters,
 				"action": view.__name__,
 				"application": view.__module__,
-				"request_method": request.method,
+				"method": request.method,
+				"url": request.build_absolute_uri()
 		}
 
 	def exception_info(self, exception, tb):
+
+
 		culprit_filepath, lineno, method, error = traceback.extract_tb(tb)[-1]
 		context = get_lines_from_file(filepath=culprit_filepath, culprit_lineno=lineno)
 		
