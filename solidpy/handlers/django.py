@@ -15,10 +15,6 @@ from solidpy.utils.stack import get_lines_from_file
 class SolidDjangoMiddleware(SolidBaseHandler):
 
 
-	# TODO - Check if the settings are properly configured
-	def __init__(self):
-		super(SolidDjangoMiddleware, self).__init__()
-
 	def process_exception(self, request, exc):	
 		exception_dict = {}
 

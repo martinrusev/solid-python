@@ -12,7 +12,7 @@ setup(
 	author_email='martin@solidapp.io',
 	url='https://github.com/martinrusev/solid-python',
 	license='BSD',
-	packages=['solidpy','solidpy.adapters'],
+	packages=['solidpy','solidpy.handlers'],
 	package_dir={'solidpy':'solidpy'},
 	zip_safe=False,
 	install_requires=['requests',],
