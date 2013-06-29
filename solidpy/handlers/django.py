@@ -69,7 +69,6 @@ class SolidDjangoMiddleware(SolidBaseHandler):
 
 		culprit_filepath, lineno, method, error = traceback.extract_tb(tb)[-1]
 
-		print culprit_filepath
 		context = get_lines_from_file(filepath=culprit_filepath, culprit_lineno=lineno)
 		
 		backtrace = []
